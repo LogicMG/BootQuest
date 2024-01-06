@@ -1,4 +1,5 @@
-namespace: internal
+namespace: golinks
 resources:
 - deploy.yaml
 - pvc.yaml
+- namespace.yaml
