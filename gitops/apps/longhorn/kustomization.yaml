@@ -1,0 +1,6 @@
+resources:
+- https://raw.githubusercontent.com/longhorn/longhorn/v1.5.0/deploy/longhorn.yaml
+- ingress.yaml
+
+patches:
+- path: storageclass-cm.yaml

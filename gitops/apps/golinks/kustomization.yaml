@@ -1,0 +1,4 @@
+namespace: internal
+resources:
+- deploy.yaml
+- pvc.yaml

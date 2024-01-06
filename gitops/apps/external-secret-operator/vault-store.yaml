@@ -1,0 +1,23 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: vault-backend
+spec:
+  provider:
+    vault:
+      server: "https://192.168.253.151"
+      path: "infra"
+      version: "v2"
+      caProvider:
+        type: Secret
+        name: logicmg-ca
+        namespace: vault-unsealer-operator-system
+        key: ca.crt
+      auth:
+        appRole:
+          path: "approle"
+          roleId: "d8202b83-0264-dc32-4a55-3b272febbdd3"
+          secretRef:
+            name: "vault-sid"
+            namespace: "external-secrets"
+            key: "secret-id"

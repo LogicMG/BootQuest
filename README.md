@@ -1,0 +1,1 @@
+# LogicMG's Platform Manifests
