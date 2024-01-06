@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./bootstrap/longhorn
+  path: ./gitops/apps/longhorn
   prune: false
   sourceRef:
     kind: GitRepository

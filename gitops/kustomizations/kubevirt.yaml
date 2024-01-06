@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: ./bootstrap/kubevirt
+  path: ./gitops/apps/kubevirt
   prune: false
   sourceRef:
     kind: GitRepository
