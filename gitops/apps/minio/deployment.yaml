@@ -17,7 +17,8 @@ spec:
         args:
         - server
         - /storage
-        - --console-address ":9001"
+        - --console-address
+        - ":9001"
         ports:
         - name: api
           containerPort: 9000
