@@ -25,7 +25,7 @@ data:
         reload
         loadbalance
     }
-    logicmg.corp:53 {
+    logicmg.intra:53 {
         errors
         cache 30
         forward . 192.168.253.150
