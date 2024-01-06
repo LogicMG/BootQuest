@@ -15,7 +15,7 @@ spec:
           service:
             name: minio
             port:
-              number: 9000
+              number: 45929
   tls:
   - hosts:
     - "minio.logicmg.intra"
