@@ -17,11 +17,12 @@ spec:
         args:
         - server
         - /storage
+        - --console-address ":9001"
         ports:
         - name: api
           containerPort: 9000
         - name: console
-          containerPort: 45929
+          containerPort: 9001
         volumeMounts:
         - name: storage
           mountPath: "/storage"
