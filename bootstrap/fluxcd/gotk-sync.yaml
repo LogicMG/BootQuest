@@ -8,7 +8,7 @@ spec:
   interval: 1m
   ref:
     branch: main
-  url: https://github.com/LogicMG/infra.git
+  url: https://github.com/LogicMG/BootQuest.git
   ignore: |
     /*
     !/bootstrap/fluxcd
