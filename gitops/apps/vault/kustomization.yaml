@@ -1,5 +1,5 @@
 namespace: vault
-ressources:
+resources:
 - namespace.yaml
 - bundle.yaml
 - ingress.yaml
