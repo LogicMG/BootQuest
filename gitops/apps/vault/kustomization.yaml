@@ -2,5 +2,4 @@ namespace: vault
 resources:
 - namespace.yaml
 - bundle.yaml
-- ingress.yaml
 - certificate.yaml

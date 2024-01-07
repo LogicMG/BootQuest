@@ -16,6 +16,9 @@ spec:
     size: 2048
   dnsNames:
     - vault.logicmg.intra
+    - vault.vault.svc
+  ipAddresses:
+    - 192.168.253.152
   issuerRef:
     name: root-logicmg
     kind: ClusterIssuer
