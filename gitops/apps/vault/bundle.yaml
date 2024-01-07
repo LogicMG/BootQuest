@@ -73,7 +73,7 @@ spec:
   clusterIP: None
   publishNotReadyAddresses: true
   ports:
-    - name: "http"
+    - name: "https"
       port: 8200
       targetPort: 8200
     - name: https-internal
@@ -103,7 +103,7 @@ spec:
   # since this DNS is also used for join operations.
   publishNotReadyAddresses: true
   ports:
-    - name: http
+    - name: https
       port: 8200
       targetPort: 8200
     - name: https-internal
@@ -125,6 +125,8 @@ metadata:
     app.kubernetes.io/name: vault-ui
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
+  annotations:
+    io.cilium/lb-ipam-ips: 192.168.253.152
 spec:
   selector:
     app.kubernetes.io/name: vault
@@ -132,10 +134,11 @@ spec:
     component: server
   publishNotReadyAddresses: true
   ports:
-    - name: http
-      port: 8200
+    - name: https
+      port: 443
       targetPort: 8200
-  type: ClusterIP
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
 ---
 # Source: vault/templates/server-statefulset.yaml
 # StatefulSet to run the actual vault server cluster.
@@ -240,9 +243,9 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: VAULT_ADDR
-              value: "http://127.0.0.1:8200"
+              value: "https://127.0.0.1:8200"
             - name: VAULT_API_ADDR
-              value: "http://$(POD_IP):8200"
+              value: "https://$(POD_IP):8200"
             - name: SKIP_CHOWN
               value: "true"
             - name: SKIP_SETCAP
@@ -277,11 +280,11 @@ spec:
               mountPath: /home/vault
           ports:
             - containerPort: 8200
-              name: http
+              name: https
             - containerPort: 8201
               name: https-internal
             - containerPort: 8202
-              name: http-rep
+              name: https-rep
           lifecycle:
             # Vault container doesn't receive SIGTERM from Kubernetes
             # and after the grace period ends, Kube sends SIGKILL.  This
@@ -327,7 +330,7 @@ spec:
       imagePullPolicy: IfNotPresent
       env:
         - name: VAULT_ADDR
-          value: http://vault.vault.svc:8200
+          value: https://vault.vault.svc:8200
         
       command:
         - /bin/sh
