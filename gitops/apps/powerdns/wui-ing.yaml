@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: powerdns
   annotations:
-    cert-manager.io/cluster-issuer: vault
+    cert-manager.io/cluster-issuer: root-logicmg
 spec:
   rules:
   - host: "dns.logicmg.intra"
