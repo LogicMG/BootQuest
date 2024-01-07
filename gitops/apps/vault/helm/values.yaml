@@ -12,7 +12,7 @@ server:
     secret:
       secretName: server-cert
   volumeMounts:
-  - name: plugins
+  - name: pki
     mountPath: /vault/pki
     readOnly: true
 
