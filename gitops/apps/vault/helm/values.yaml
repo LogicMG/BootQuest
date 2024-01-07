@@ -1,0 +1,48 @@
+global:
+  tlsDisable: true
+server:
+  dataStorage:
+    enabled: true
+    size: 6Gi
+    mountPath: "/vault/data"
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+  volumes:
+  - name: pki
+    secret:
+      secretName: server-cert
+  volumeMounts:
+  - name: plugins
+    mountPath: /vault/pki
+    readOnly: true
+
+# UPDATE SVC ANNOTATIONS
+  standalone:
+    enabled: "-"
+    config: |
+      ui = true
+      listener "tcp" {
+        address       = "0.0.0.0:8200"
+        tls_cert_file = "/vault/pki/tls.crt"
+        tls_key_file  = "/vault/pki/tls.key"
+      }
+      storage "file" {
+        path = "/vault/data"
+      }
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+
+ui:
+  enabled: true
+  publishNotReadyAddresses: true
+  activeVaultPodOnly: false
+  serviceType: "ClusterIP"
+  externalPort: 8200
+  targetPort: 8200
+
+injector:
+  enabled: false
+csi:
+  enabled: false

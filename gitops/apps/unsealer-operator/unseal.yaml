@@ -5,7 +5,7 @@
    namespace: vault-unsealer-operator-system
  spec:
    vaultNodes:
-     - https://192.168.253.151
+     - https://vault.logicmg.intra
    thresholdKeysSecret: thresholdkeys
    caCertSecret: logicmg-ca
    retryCount: 3
