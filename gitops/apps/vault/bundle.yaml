@@ -260,6 +260,8 @@ spec:
               value: "/home/vault"
             
             
+            - name: "VAULT_CACERT"
+              value: "/vault/pki/ca.crt"
             
           volumeMounts:
           
@@ -332,6 +334,8 @@ spec:
         - name: VAULT_ADDR
           value: https://vault.vault.svc:8200
         
+        - name: "VAULT_CACERT"
+          value: "/vault/pki/ca.crt"
       command:
         - /bin/sh
         - -c
