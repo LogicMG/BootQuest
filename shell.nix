@@ -6,6 +6,7 @@ pkgs.mkShell {
     pkgs.kubernetes-helm
     pkgs.vault-bin
     pkgs.kustomize
+    pkgs.terraform
   ];
 }
 
