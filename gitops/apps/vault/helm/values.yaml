@@ -44,6 +44,7 @@ ui:
   targetPort: 8200
   annotations:
     "io.cilium/lb-ipam-ips": "192.168.253.152"
+    "external-dns.alpha.kubernetes.io/hostname": "vault.logicmg.intra"
 
 injector:
   enabled: false
