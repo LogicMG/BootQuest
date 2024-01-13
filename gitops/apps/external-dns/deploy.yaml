@@ -26,7 +26,7 @@ spec:
         - --interval=30s
         env:
         - name: EXTERNAL_DNS_PDNS_SERVER
-          value: "http://powerdns-api.internal.svc"
+          value: "http://powerdns-api.powerdns.svc"
         - name: EXTERNAL_DNS_PDNS_API_KEY
           valueFrom:
             secretKeyRef:
