@@ -11,7 +11,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: internal-authentik
+            name: authentik-authentik
             port:
               number: 80
   - host: "longhorn.logicmg.intra"
@@ -21,6 +21,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: internal-authentik
+            name: authentik-authentik
             port:
               number: 80
