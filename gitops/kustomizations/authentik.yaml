@@ -13,7 +13,7 @@ metadata:
   name: authentik
   namespace: flux-system
 spec:
-  targetNamespace: internal
+  targetNamespace: authentik
   interval: 1h0m0s
   chart:
     spec:

@@ -1,4 +1,4 @@
-namespace: internal
+namespace: powerdns
 resources:
 - db-deploy.yaml
 - db-pvc.yaml

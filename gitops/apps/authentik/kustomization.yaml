@@ -1,5 +1,6 @@
-namespace: internal
+namespace: authentik
 resources:
+- ns.yaml
 - db-pvc.yaml
 - db-deploy.yaml
 - db-svc.yaml
