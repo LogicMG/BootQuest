@@ -66,13 +66,13 @@ spec:
   data:
   - secretKey: database
     remoteRef:
-      key: infra/powerdns/mariadb
+      key: secrets/powerdns/mariadb
       property: database
   - secretKey: user
     remoteRef:
-      key: infra/powerdns/mariadb
+      key: secrets/powerdns/mariadb
       property: user
   - secretKey: password
     remoteRef:
-      key: infra/powerdns/mariadb
+      key: secrets/powerdns/mariadb
       property: password
