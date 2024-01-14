@@ -14,7 +14,7 @@ spec:
         app: pdns-wui
     spec:
       containers:
-      - image: ngoduykhanh/powerdns-admin:v0.3.0
+      - image: powerdnsadmin/pda-legacy:latest
         name: powerdns-admin
         ports:
         - name: http
