@@ -29,13 +29,13 @@ spec:
             secretKeyRef:
               name: pdns-mariadb
               key: database_uri
-        - name: REQUESTS_CA_BUNDLE
-          value: '/certs/ca.crt'
-        volumeMounts:
-          - name: cacert
-            readOnly: true
-            mountPath: "/certs"
-      volumes:
-        - name: cacert
-          secret:
-            secretName: logicmg-ca
+      #   - name: REQUESTS_CA_BUNDLE
+      #     value: '/certs/ca.crt'
+      #   volumeMounts:
+      #     - name: cacert
+      #       readOnly: true
+      #       mountPath: "/certs"
+      # volumes:
+      #   - name: cacert
+      #     secret:
+      #       secretName: logicmg-ca
