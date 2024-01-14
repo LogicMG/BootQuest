@@ -19,6 +19,9 @@ spec:
         - /storage
         - --console-address
         - ":9001"
+        env:
+        - name: MINIO_API_ROOT_ACCESS
+          value: "off"
         ports:
         - name: api
           containerPort: 9000
