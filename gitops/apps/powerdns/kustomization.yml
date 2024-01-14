@@ -1,5 +1,6 @@
 namespace: powerdns
 resources:
+- coredns-config.yaml
 - ns.yaml
 - db-deploy.yaml
 - db-pvc.yaml
