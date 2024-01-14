@@ -35,3 +35,9 @@ Deploy fluxcd and gitops resources in the cluster
 ```bash
 kubectl kustomize fluxcd/ | kubectl apply -f -
 ```
+
+# DNS
+Deploy fluxcd and gitops resources in the cluster
+```bash
+kubectl apply -f kubernetes/coredns-config.yaml
+```
