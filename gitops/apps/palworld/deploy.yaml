@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld
+spec:
+  selector:
+    matchLabels:
+      app: palworld
+  template:
+    metadata:
+      labels:
+        app: palworld
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: palworld
+        image: kagurazakanyaa/palworld:latest
+        env:
+        - name: MAX_PLAYERS
+          value: "32"
+        - name: IS_PUBLIC
+          value: "true"
+        - name: FORCE_UPDATE
+          value: "true"
+        - name: SERVER_NAME
+          value: "LogicMG"
+        - name: SERVER_DESC
+          value: "Serveur public code discord uuz9H6V - logicmg.fr"
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: palworld
+              key: admin_password
+        ports:
+        - name: game
+          containerPort: 8211
+          hostPort: 8211
+          protocol: UDP
+        - name: query
+          containerPort: 27015
+          hostPort: 27015
+          protocol: UDP
+        volumeMounts:
+        - name: data
+          mountPath: "/opt/palworld/Pal/Saved"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: palworld-data
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: palworld
+spec:
+  refreshInterval: "1h"
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: palworld
+  data:
+  - secretKey: admin_password
+    remoteRef:
+      key: secrets/palworld/server
+      property: admin_password

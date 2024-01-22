@@ -1,0 +1,5 @@
+namespace: palworld
+resources:
+- namespace.yaml
+- deploy.yaml
+- pvc.yaml
