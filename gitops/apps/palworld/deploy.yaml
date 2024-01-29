@@ -24,7 +24,7 @@ spec:
         - name: FORCE_UPDATE
           value: "true"
         - name: SERVER_NAME
-          value: "LogicMG"
+          value: "LogicMG Community"
         - name: SERVER_DESC
           value: "Serveur public code discord uuz9H6V - logicmg.fr"
         - name: ADMIN_PASSWORD
