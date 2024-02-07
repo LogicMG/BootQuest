@@ -3,3 +3,5 @@ resources:
 - namespace.yaml
 - deploy.yaml
 - pvc.yaml
+- private-deploy.yaml
+- private-pvc.yaml
