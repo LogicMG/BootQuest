@@ -13,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dash
+            name: headlamp
             port:
               number: 80
   tls:
