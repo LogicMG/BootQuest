@@ -6,6 +6,9 @@ rules:
 - apiGroups: [""]
   resources: ["namespaces", "nodes"]
   verbs: ["get", "watch", "list"]
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["watch","list"]
 - apiGroups: ["instancetype.kubevirt.io", "migrations.kubevirt.io"]
   resources: ["*"]
   verbs: ["get", "watch", "list"]
@@ -28,12 +31,9 @@ metadata:
   name: srv-manager
   namespace: palworld
 rules:
-- apiGroups:
-  - '*'
-  resources:
-  - '*'
-  verbs:
-  - "*"
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -54,12 +54,9 @@ metadata:
   name: srv-manager
   namespace: multipaper
 rules:
-- apiGroups:
-  - '*'
-  resources:
-  - '*'
-  verbs:
-  - "*"
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

@@ -1,0 +1,6 @@
+namespace: headlamp
+resources:
+- namespace.yaml
+- deploy.yaml
+- service.yaml
+- ingress.yaml
