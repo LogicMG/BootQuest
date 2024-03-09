@@ -1,6 +1,7 @@
 resources:
 - https://raw.githubusercontent.com/longhorn/longhorn/v1.5.3/deploy/longhorn.yaml
 - ingress.yaml
+- xfs-sc.yaml
 
 patches:
 - path: storageclass-cm.yaml
