@@ -1,0 +1,5 @@
+namespace: vrising-private
+resources:
+- pvc.yaml
+- deploy.yaml
+- svc.yaml

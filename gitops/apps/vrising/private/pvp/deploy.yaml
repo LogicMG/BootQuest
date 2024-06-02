@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrising-pvp
+spec:
+  selector:
+    matchLabels:
+      app: vrising-pvp
+  template:
+    metadata:
+      labels:
+        app: vrising-pvp
+    spec:
+      containers:
+      - name: vrising
+        image: trueosiris/vrising:2.1
+        env:
+        - name: TZ
+          value: "Europe/Paris"
+        - name: SERVERNAME
+          value: "LogicMG Private PvP"
+        ports:
+        - name: game
+          containerPort: 9876
+          protocol: UDP
+        - name: query
+          containerPort: 9877
+          protocol: UDP
+        volumeMounts:
+        - name: config
+          mountPath: "/mnt/vrising/server"
+        - name: data
+          mountPath: "/mnt/vrising/persistentdata"
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: vrising-pvp-config
+      - name: data
+        persistentVolumeClaim:
+          claimName: vrising-pvp-data
