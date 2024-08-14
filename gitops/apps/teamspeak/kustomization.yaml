@@ -1,0 +1,6 @@
+namespace: teamspeak
+resources:
+- namespace.yaml
+- pvc.yaml
+- deploy.yaml
+- svc.yaml
