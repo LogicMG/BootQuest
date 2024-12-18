@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-engineers
+spec:
+  selector:
+    matchLabels:
+      app: space-engineers
+  template:
+    metadata:
+      labels:
+        app: space-engineers
+    spec:
+      containers:
+      - name: space-engineers
+        image: devidian/spaceengineers:winestaging
+        env:
+        - name: INSTANCE_NAME
+          value: "LogicMG"
+        - name: PUBLIC_IP
+          value: "213.166.195.181"
+        - name: WINEDEBUG
+          value: "-all"
+        ports:
+        - name: game
+          containerPort: 27017
+          hostPort: 27017
+          protocol: UDP
+        volumeMounts:
+        - name: world
+          mountPath: "/appdata/space-engineers/instances"
+        - name: server-files
+          mountPath: "/appdata/space-engineers/SpaceEngineersDedicated"
+      volumes:
+      - name: world
+        persistentVolumeClaim:
+          claimName: space-engineers-world
+      - name: server-files
+        persistentVolumeClaim:
+          claimName: space-engineers-server-files
