@@ -1,0 +1,5 @@
+namespace: space-engineers
+resources:
+- namespace.yaml
+- deploy.yaml
+- pvc.yaml
