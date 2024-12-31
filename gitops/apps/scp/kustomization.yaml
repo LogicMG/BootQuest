@@ -1,0 +1,5 @@
+namespace: scp
+resources:
+- namespace.yaml
+- deploy.yaml
+- pvc.yaml

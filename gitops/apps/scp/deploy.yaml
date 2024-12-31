@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scp
+spec:
+  selector:
+    matchLabels:
+      app: scp
+  template:
+    metadata:
+      labels:
+        app: scp
+    spec:
+      securityContext:
+        fsGroup: 22035
+      containers:
+      - name: scp
+        image: doobig/scpsl-docker:latest
+        env:
+        - name: SCPSL_PORT
+          value: "7777"
+        - name: ENABLE_PATCH
+          value: "true"
+        ports:
+        - name: game
+          containerPort: 7777
+          hostPort: 7777
+          protocol: UDP
+        volumeMounts:
+        - name: data
+          mountPath: "/config/SCP\ Secret\ Laboratory"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: scp-data
