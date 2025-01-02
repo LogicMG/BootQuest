@@ -1,4 +1,0 @@
-namespace: core-keeper
-resources:
-- pvc.yaml
-- deploy.yaml
