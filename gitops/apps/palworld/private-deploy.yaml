@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: private-palworld
+spec:
+  selector:
+    matchLabels:
+      app: private-palworld
+  template:
+    metadata:
+      labels:
+        app: private-palworld
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: palworld
+        image: kagurazakanyaa/palworld:latest
+        env:
+        - name: MAX_PLAYERS
+          value: "32"
+        - name: IS_PUBLIC
+          value: "false"
+        - name: FORCE_UPDATE
+          value: "true"
+        - name: SERVER_NAME
+          value: "LogicMG"
+        - name: SERVER_DESC
+          value: "Serveur privé de Sora - logicmg.fr"
+        - name: GAME_PORT
+          value: "8212"
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: private-palworld
+              key: admin_password
+        - name: SERVER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: private-palworld
+              key: server_password
+        ports:
+        - name: game
+          containerPort: 8212
+          hostPort: 8212
+          protocol: UDP
+        - name: query
+          containerPort: 27016
+          hostPort: 27016
+          protocol: UDP
+        volumeMounts:
+        - name: data
+          mountPath: "/opt/palworld/Pal/Saved"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: private-palworld-data
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: private-palworld
+spec:
+  refreshInterval: "1h"
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: private-palworld
+  data:
+  - secretKey: admin_password
+    remoteRef:
+      key: secrets/palworld/private
+      property: admin_password
+  - secretKey: server_password
+    remoteRef:
+      key: secrets/palworld/private
+      property: server_password
