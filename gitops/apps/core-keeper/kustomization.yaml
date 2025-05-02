@@ -1,0 +1,5 @@
+namespace: core-keeper
+resources:
+- ns.yaml
+- pvc.yaml
+- deploy.yaml

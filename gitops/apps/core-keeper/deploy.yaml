@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: core-keeper-private
+spec:
+  selector:
+    matchLabels:
+      app: core-keeper-private
+  template:
+    metadata:
+      labels:
+        app: core-keeper-private
+    spec:
+      containers:
+      - name: core-keeper
+        image: escaping/core-keeper-dedicated:v2
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: WORLD_INDEX
+          value: "0"
+        - name: WORLD_NAME
+          value: "LogicMG Private Core Keeper"
+        - name: WORLD_SEED
+          value: "0" # Random seed
+        - name: WORLD_MOD
+          value: "0" # Normal mode
+        - name: GAME_ID
+          value: "" # Auto Generated but must be empty
+        - name: DATA_PATH
+          value: "/home/steam/core-keeper-data"
+        - name: MAX_PLAYERS
+          value: "10"
+        - name: SEASON
+          value: "" # Auto Generated but must be empty
+        - name: DISCORD_PLAYER_JOIN_ENABLED
+          value: "false"
+        - name: DISCORD_PLAYER_LEAVE_ENABLED
+          value: "false"
+        - name: DISCORD_SERVER_START_ENABLED
+          value: "false"
+        - name: DISCORD_SERVER_STOP_ENABLED
+          value: "false"
+        volumeMounts:
+        - name: files
+          mountPath: "/home/steam/core-keeper-dedicated"
+        - name: data
+          mountPath: "/home/steam/core-keeper-data"
+      volumes:
+      - name: files
+        persistentVolumeClaim:
+          claimName: core-keeper-private-files
+      - name: data
+        persistentVolumeClaim:
+          claimName: core-keeper-private-data
