@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: core-keeper
-        image: escaping/core-keeper-dedicated:v2
+        image: escaping/core-keeper-dedicated:v2.5
         env:
         - name: PUID
           value: "1000"
