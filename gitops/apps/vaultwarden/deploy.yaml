@@ -107,7 +107,7 @@ data:
     echo "update-ca-certificates"
     update-ca-certificates
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: vaultwarden

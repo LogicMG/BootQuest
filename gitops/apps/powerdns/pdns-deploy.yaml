@@ -71,7 +71,7 @@ spec:
         - name: PDNS_allow_axfr_ips
           value: '127.0.0.1'
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: powerdns

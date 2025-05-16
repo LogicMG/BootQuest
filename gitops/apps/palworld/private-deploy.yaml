@@ -56,7 +56,7 @@ spec:
         persistentVolumeClaim:
           claimName: private-palworld-data
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: private-palworld
