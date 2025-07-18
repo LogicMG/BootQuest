@@ -12,41 +12,58 @@ spec:
       labels:
         app: headlamp
     spec:
+      initContainers:
+        - name: headlamp-plugins
+          image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:latest
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - -c
+            - mkdir -p /headlamp/plugins && cp -r /plugins/* /headlamp/plugins/
+          volumeMounts:
+            - mountPath: /headlamp/plugins
+              name: headlamp-plugins
       containers:
-      - name: headlamp
-        image: ghcr.io/headlamp-k8s/headlamp:v0.31.1
-        args:
-        - -in-cluster
-        - -plugins-dir=/headlamp/plugins
-        - -oidc-client-id=kubernetes
-        - -oidc-client-secret=4hp6S7oXppl93kDKbcUn4zNUuFGI6FKFhVczzF77E1RZr6eYho6iFQwjgm96grJBR079Lhot6qUYWjm6TzywPp2Bl8MFLdcuU4kNZ9iBG1X9TYqdK9P3QhJTGvFhWqiJ
-        - -oidc-idp-issuer-url=https://auth.logicmg.intra/application/o/kubernetes/
-        - -oidc-scopes=email,profile,oidc
-        - -insecure-ssl
-        ports:
-        - containerPort: 4466
-          name: http
-          protocol: TCP
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: http
-            scheme: HTTP
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: http
-            scheme: HTTP
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        securityContext:
-          privileged: false
-          runAsGroup: 101
-          runAsNonRoot: true
-          runAsUser: 100
+        - name: headlamp
+          image: ghcr.io/headlamp-k8s/headlamp:v0.33.0
+          args:
+            - -in-cluster
+            - -plugins-dir=/headlamp/plugins
+            - -oidc-client-id=kubernetes
+            - -oidc-client-secret=4hp6S7oXppl93kDKbcUn4zNUuFGI6FKFhVczzF77E1RZr6eYho6iFQwjgm96grJBR079Lhot6qUYWjm6TzywPp2Bl8MFLdcuU4kNZ9iBG1X9TYqdK9P3QhJTGvFhWqiJ
+            - -oidc-idp-issuer-url=https://auth.logicmg.intra/application/o/kubernetes/
+            - -oidc-scopes=email,profile,oidc
+            - -insecure-ssl
+          ports:
+            - containerPort: 4466
+              name: http
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          securityContext:
+            privileged: false
+            runAsGroup: 101
+            runAsNonRoot: true
+            runAsUser: 100
+          volumeMounts:
+            - mountPath: /headlamp/plugins
+              name: headlamp-plugins
+      volumes:
+        - name: headlamp-plugins
+          emptyDir: {}
