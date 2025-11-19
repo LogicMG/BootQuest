@@ -31,7 +31,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: external-dns
-              key: api_key           
+              key: api_key
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret

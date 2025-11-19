@@ -1,0 +1,6 @@
+namespace: enshrouded
+resources:
+  - namespace.yaml
+  - deploy.yaml
+  - svc.yaml
+  - pvc.yaml

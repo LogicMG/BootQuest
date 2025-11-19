@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enshrouded
+spec:
+  selector:
+    matchLabels:
+      app: enshrouded
+  template:
+    metadata:
+      labels:
+        app: enshrouded
+    spec:
+      securityContext:
+        fsGroup: 22035
+      containers:
+        - name: enshrouded
+          image: mornedhels/enshrouded-server:1.7.1
+          env:
+            - name: PUID
+              value: "4711"
+            - name: PGID
+              value: "4711"
+            - name: SERVER_NAME
+              value: "LogicMG"
+            - name: SERVER_SLOT_COUNT
+              value: "16"
+            - name: SERVER_QUERYPORT
+              value: "15637"
+            - name: SERVER_IP
+              value: "0.0.0.0"
+            - name: SERVER_VOICE_CHAT_MODE
+              value: "Proximity"
+            - name: SERVER_ENABLE_VOICE_CHAT
+              value: "false"
+            - name: SERVER_ENABLE_TEXT_CHAT
+              value: "true"
+            - name: BACKUP_CRON
+              value: "*/20 * * * *"
+            - name: BACKUP_MAX_COUNT
+              value: "5"
+            - name: GAME_BRANCH
+              value: "public"
+            - name: SERVER_ROLE_0_NAME
+              value: "Guest"
+            - name: SERVER_ROLE_0_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: enshrouded-passwords
+                  key: guest_password
+            - name: SERVER_ROLE_0_CAN_ACCESS_INVENTORIES
+              value: "true"
+            - name: SERVER_ROLE_0_CAN_EDIT_WORLD
+              value: "true"
+            - name: SERVER_ROLE_0_CAN_EDIT_BASE
+              value: "true"
+            - name: SERVER_ROLE_0_CAN_EXTEND_BASE
+              value: "true"
+            - name: SERVER_ROLE_1_NAME
+              value: "Admins"
+            - name: SERVER_ROLE_1_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: enshrouded-passwords
+                  key: admin_password
+            - name: SERVER_ROLE_1_CAN_KICK_BAN
+              value: "true"
+            - name: SERVER_ROLE_1_CAN_ACCESS_INVENTORIES
+              value: "true"
+            - name: SERVER_ROLE_1_CAN_EDIT_WORLD
+              value: "true"
+            - name: SERVER_ROLE_1_CAN_EDIT_BASE
+              value: "true"
+            - name: SERVER_ROLE_1_CAN_EXTEND_BASE
+              value: "true"
+            - name: SERVER_ROLE_1_RESERVED_SLOTS
+              value: "2"
+          ports:
+            - name: game
+              containerPort: 15637
+              protocol: UDP
+          volumeMounts:
+            - name: data
+              mountPath: "/opt/enshrouded"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: enshrouded-data
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: enshrouded
+spec:
+  refreshInterval: "1h"
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: enshrouded-passwords
+  data:
+    - secretKey: guest_password
+      remoteRef:
+        key: secrets/enshrouded
+        property: guest_password
+    - secretKey: admin_password
+      remoteRef:
+        key: secrets/enshrouded
+        property: admin_password
