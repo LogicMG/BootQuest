@@ -35,10 +35,14 @@ spec:
               value: "false"
             - name: SERVER_ENABLE_TEXT_CHAT
               value: "true"
+            - name: UPDATE_CRON
+              value: "0 4 * * *"
+            - name: UPDATE_CHECK_PLAYERS
+              value: "false"
             - name: BACKUP_CRON
-              value: "*/20 * * * *"
+              value: "0 */12 * * *"
             - name: BACKUP_MAX_COUNT
-              value: "5"
+              value: "10"
             - name: GAME_BRANCH
               value: "public"
             - name: SERVER_ROLE_0_NAME
