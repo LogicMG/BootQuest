@@ -1,0 +1,4 @@
+resources:
+  - https://raw.githubusercontent.com/projectcontour/contour/v1.33.0/examples/render/contour.yaml
+  - ingress-class.yaml
+  - acme-issuer.yaml

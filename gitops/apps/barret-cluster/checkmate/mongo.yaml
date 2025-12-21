@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: checkmate-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkmate-mongodb
+  template:
+    metadata:
+      labels:
+        app: checkmate-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: ghcr.io/bluewave-labs/checkmate-mongo:v3.2.0
+          ports:
+            - containerPort: 27017
+          command: ["mongod", "--quiet", "--bind_ip_all"]
+          volumeMounts:
+            - name: checkmate-mongo
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: checkmate-mongo
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkmate-mongodb
+spec:
+  selector:
+    app: checkmate-mongodb
+  ports:
+    - port: 27017

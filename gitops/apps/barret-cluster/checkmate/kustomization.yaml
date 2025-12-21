@@ -1,0 +1,6 @@
+namespace: checkmate
+resources:
+  - client.yaml
+  - server.yaml
+  - mongo.yaml
+  - ingress.yaml

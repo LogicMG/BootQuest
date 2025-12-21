@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkmate-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkmate-server
+  template:
+    metadata:
+      labels:
+        app: checkmate-server
+    spec:
+      containers:
+        - name: server
+          image: ghcr.io/bluewave-labs/checkmate-backend:v3.2.0
+          ports:
+            - containerPort: 52345
+          envFrom:
+            - secretRef:
+                name: sensitive
+          env:
+            - name: CLIENT_HOST
+              value: "https://status.logicmg.fr"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkmate-server
+spec:
+  selector:
+    app: checkmate-server
+  ports:
+    - port: 52345

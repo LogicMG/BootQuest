@@ -1,0 +1,28 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: infra
+  namespace: flux-system
+spec:
+  interval: 1m
+  ref:
+    branch: main
+  url: https://github.com/LogicMG/BootQuest.git
+  ignore: |
+    /*
+    !/bootstrap/fluxcd
+    !/gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./bootstrap/fluxcd/side-clusters/barret
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: infra

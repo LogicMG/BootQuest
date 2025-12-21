@@ -37,7 +37,7 @@ kubectl kustomize fluxcd/ | kubectl apply -f -
 ```
 
 # DNS
-Deploy fluxcd and gitops resources in the cluster
+Change coredns to useinternal domain for pods
 ```bash
 kubectl apply -f kubernetes/coredns-config.yaml
 ```

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: checkmate
+  annotations:
+    cert-manager.io/cluster-issuer: "acme"
+spec:
+  ingressClassName: contour
+  rules:
+    - host: status.logicmg.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: checkmate-client
+                port:
+                  number: 80
+          - path: /api/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: checkmate-server
+                port:
+                  number: 52345
+  tls:
+    - hosts:
+        - status.logicmg.fr
+      secretName: checkmate-tls
