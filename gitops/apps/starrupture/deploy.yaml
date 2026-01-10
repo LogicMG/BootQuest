@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starrupture
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: starrupture
+  template:
+    metadata:
+      labels:
+        app: starrupture
+    spec:
+      containers:
+        - name: starrupture
+          image: indifferentbroccoli/starrupture-server-docker:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: SERVER_NAME
+              value: "LogicMG"
+            - name: UPDATE_ON_START
+              value: "true"         
+          ports:
+            - name: game
+              containerPort: 7777
+              hostPort: 7777
+              protocol: UDP
+          volumeMounts:
+            - name: data
+              mountPath: "/home/steam/server-files"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: starrupture-data

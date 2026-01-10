@@ -18,13 +18,13 @@ spec:
         image: doobig/scpsl-docker:latest
         env:
         - name: SCPSL_PORT
-          value: "7777"
+          value: "7778"
         - name: ENABLE_PATCH
           value: "true"
         ports:
         - name: game
-          containerPort: 7777
-          hostPort: 7777
+          containerPort: 7778
+          hostPort: 7778
           protocol: UDP
         volumeMounts:
         - name: data
